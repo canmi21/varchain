@@ -45,9 +45,9 @@ async fn test_btreemap_source() {
 async fn test_closure_source() {
 	let closure = |k: &str| {
 		if k == "dynamic" {
-			Resolved::Found("computed".to_owned())
+			Resolved::found("computed")
 		} else {
-			Resolved::Pass
+			Resolved::pass()
 		}
 	};
 
@@ -64,9 +64,9 @@ impl Source for AsyncSource {
 		let k = key.to_owned();
 		Box::pin(async move {
 			if k == "async" {
-				Resolved::Found("awaitable".to_owned())
+				Resolved::found("awaitable")
 			} else {
-				Resolved::Pass
+				Resolved::pass()
 			}
 		})
 	}
@@ -82,4 +82,22 @@ async fn test_async_source_mixed() {
 	let scope = Scope::new().push(AsyncSource).push(map);
 
 	assert_eq!(scope.lookup("async").await, Some("awaitable".to_owned()));
+}
+
+#[tokio::test]
+async fn test_from_impls() {
+	let s = "hello".to_owned();
+	let r: Resolved = s.into();
+	assert_eq!(r, Resolved::found("hello"));
+
+	let r: Resolved = "world".into();
+	assert_eq!(r, Resolved::found("world"));
+
+	let opt = Some("opt".to_owned());
+	let r: Resolved = opt.into();
+	assert_eq!(r, Resolved::found("opt"));
+
+	let opt: Option<String> = None;
+	let r: Resolved = opt.into();
+	assert_eq!(r, Resolved::pass());
 }
