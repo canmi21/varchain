@@ -1,4 +1,4 @@
-/* examples/chain.rs */
+//! Minimal example: chaining multiple sources with priority fallback.
 
 use std::collections::HashMap;
 use varchain::Scope;

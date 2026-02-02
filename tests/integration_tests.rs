@@ -1,4 +1,4 @@
-/* tests/integration_tests.rs */
+//! Integration tests for varchain.
 
 use std::collections::{BTreeMap, HashMap};
 use varchain::{Resolved, Scope, Source, SourceFuture};
@@ -90,8 +90,8 @@ async fn test_from_impls() {
 	let r: Resolved = s.into();
 	assert_eq!(r, Resolved::found("hello"));
 
-	let r: Resolved = "world".into();
-	assert_eq!(r, Resolved::found("world"));
+	let r: Resolved = Resolved::found("world");
+	assert_eq!(r, Resolved::Found("world".to_owned()));
 
 	let opt = Some("opt".to_owned());
 	let r: Resolved = opt.into();

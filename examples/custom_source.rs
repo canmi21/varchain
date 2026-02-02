@@ -1,4 +1,4 @@
-/* examples/custom_source.rs */
+//! Minimal example: implementing a custom async `Source`.
 
 use varchain::{Resolved, Scope, Source, SourceFuture};
 
