@@ -1,35 +1,30 @@
 # varchain
 
-Async-only, zero-runtime-dependency variable chain lookup engine.
+Async-only chain-based variable lookup engine.
 
 `varchain` provides a flexible way to resolve variables from a prioritized chain of sources (e.g., in-memory maps, environment variables, network lookups) without enforcing a specific runtime.
 
 ## Features
 
 - **Async-Only**: Designed for asynchronous contexts from the ground up, compatible with any runtime (Tokio, async-std, smol, etc.) or just `core::future`.
-- **Zero Runtime Dependencies**: Depends only on `std` and `thiserror`/`tracing`. No heavy runtime baggage.
 - **Flexible Sources**: Easy implementation of custom sources via the `Source` trait.
-- **Zero-Cost Abstractions**: Blanket implementations for `HashMap`, `BTreeMap`, and closures use `core::future::ready` for immediate resolution.
 - **Composability**: Build lookup scopes by chaining multiple sources with strict precedence.
 
 ## Usage Examples
 
 Check the `examples` directory for runnable code:
 
-- **Basic Usage**: [`examples/basic.rs`](examples/basic.rs) - Demonstrate lookup precedence with HashMap and Closures.
+- **HashMap Source**: [`examples/hashmap.rs`](examples/hashmap.rs) - Simple memory-based lookup.
+- **Closure Source**: [`examples/closure.rs`](examples/closure.rs) - Use functions for dynamic lookups.
+- **Chained Priority**: [`examples/chain.rs`](examples/chain.rs) - Demonstrate fallback and precedence.
+- **Custom Source**: [`examples/custom_source.rs`](examples/custom_source.rs) - Implement the `Source` trait for async backends.
 
 ## Installation
 
 ```toml
 [dependencies]
-varchain = { version = "0.0.1" }
+varchain = { version = "0.1" }
 ```
-
-## Feature Flags
-
-| Feature | Description |
-|---------|-------------|
-| `full` | Enables all features above. |
 
 ## License
 
