@@ -40,6 +40,7 @@ impl Scope {
 }
 
 impl Default for Scope {
+	/// Returns an empty `Scope`.
 	fn default() -> Self {
 		Self::new()
 	}
@@ -59,6 +60,7 @@ pub async fn lookup(key: &str, scope: &Scope) -> Option<String> {
 	}
 	None
 }
+
 impl std::fmt::Debug for Scope {
 	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
 		f.debug_struct("Scope")
