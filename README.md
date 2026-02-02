@@ -1,48 +1,34 @@
-# Sigterm
+# varchain
 
-Signal-aware async control and cancellation primitives for Tokio.
+Async-only, zero-runtime-dependency variable chain lookup engine.
 
-`sigterm` abstracts away the boilerplate of listening for system signals (`Ctrl+C`, `SIGTERM`, etc.) and coordinating shutdown across multiple asynchronous tasks.
+`varchain` provides a flexible way to resolve variables from a prioritized chain of sources (e.g., in-memory maps, environment variables, network lookups) without enforcing a specific runtime.
 
 ## Features
 
-- **Signal Waiting**: Wait for `Ctrl+C` or `SIGTERM` across platforms with a single `await`. Use `try_wait()` for non-panicking version.
-- **Cancellation Tokens**: Hierarchy-based cancellation (parent cancels child) powered by `tokio-util`.
-- **Shutdown Primitives**:
-  - `Shutdown`: One-shot channel for single-task termination.
-  - `Broadcast`: Notify multiple subscribers of a shutdown event.
-  - `ShutdownGuard`: RAII guard that triggers shutdown when dropped (useful for panics).
-- **Framework Integration**: `shutdown_signal()` helper designed for seamless integration with `axum::serve`.
-- **Unix Extensions**: Listen for custom signal sets (`SIGHUP`, `SIGQUIT`, etc.) on Unix systems.
+- **Async-Only**: Designed for asynchronous contexts from the ground up, compatible with any runtime (Tokio, async-std, smol, etc.) or just `core::future`.
+- **Zero Runtime Dependencies**: Depends only on `std` and `thiserror`/`tracing`. No heavy runtime baggage.
+- **Flexible Sources**: Easy implementation of custom sources via the `Source` trait.
+- **Zero-Cost Abstractions**: Blanket implementations for `HashMap`, `BTreeMap`, and closures use `core::future::ready` for immediate resolution.
+- **Composability**: Build lookup scopes by chaining multiple sources with strict precedence.
 
 ## Usage Examples
 
 Check the `examples` directory for runnable code:
 
-- **Basic Usage**: [`examples/simple.rs`](examples/simple.rs) - Wait for a simple shutdown signal.
-- **Server Integration**: [`examples/shutdown_signal.rs`](examples/shutdown_signal.rs) - Combine system signals with internal cancellation (e.g., for Axum).
-- **Task Orchestration**: [`examples/broadcast.rs`](examples/broadcast.rs) - Coordinate multiple workers.
-- **Hierarchical Cancellation**: [`examples/cancellation.rs`](examples/cancellation.rs) - Manage tree-structured tasks.
-- **Scope Guard**: [`examples/guard.rs`](examples/guard.rs) - Ensure shutdown on exit or panic.
+- **Basic Usage**: [`examples/basic.rs`](examples/basic.rs) - Demonstrate lookup precedence with HashMap and Closures.
 
 ## Installation
 
 ```toml
 [dependencies]
-sigterm = { version = "0.3", features = ["full"] }
+varchain = { version = "0.0.1" }
 ```
 
 ## Feature Flags
 
 | Feature | Description |
 |---------|-------------|
-| `signal` | Enables signal handling (Ctrl+C, SIGTERM) - enabled by default. |
-| `sync` | Enables synchronization primitives (`Shutdown`, `Broadcast`). |
-| `macros` | Enables Tokio macro support. |
-| `rt` | Enables Tokio runtime support (required for `wait_for`). |
-| `cancel` | Enables hierarchical cancellation tokens via `tokio-util`. |
-| `time` | Enables timeout support for signal waiting. |
-| `tracing` | Enables optional tracing instrumentation for debugging. |
 | `full` | Enables all features above. |
 
 ## License
