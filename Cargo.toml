@@ -1,11 +1,11 @@
 [package]
 name = "varchain"
 license = "MIT"
-version = "0.0.2"
+version = "0.0.1"
 edition = "2024"
 rust-version = "1.93"
 categories = ["rust-patterns", "asynchronous"]
-description = "An async-only chain-based variable lookup engine with zero-runtime dependencies"
+description = "An async-only chain-based variable lookup engine"
 keywords = ["variable", "chain", "lookup", "async", "core"]
 readme = "README.md"
 repository = "https://github.com/canmi21/varchain.git"
@@ -14,20 +14,24 @@ repository = "https://github.com/canmi21/varchain.git"
 all-features = true
 
 [dependencies]
-thiserror = "2"
-tracing = "0.1"
 
 [features]
-default = []
-full = []
 
 [[example]]
-name = "basic"
-required-features = ["full"]
+name = "hashmap"
+
+[[example]]
+name = "closure"
+
+[[example]]
+name = "chain"
+
+[[example]]
+name = "custom_source"
 
 [dev-dependencies]
-serial_test = "3"
 tempfile = "3"
+tokio = { version = "1", features = ["full"] }
 
 [lints.rust]
 unsafe_code = "forbid"
