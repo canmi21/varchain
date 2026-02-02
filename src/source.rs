@@ -23,6 +23,7 @@ pub trait Source: Send + Sync {
 
 // Blanket implementation for HashMap
 impl Source for HashMap<String, String> {
+	/// Looks up a key in a `HashMap`. Returns `Found` if the key exists, `Pass` otherwise.
 	fn get(&self, key: &str) -> SourceFuture<'_> {
 		let res = match self.get(key) {
 			Some(v) => Resolved::Found(v.clone()),
@@ -34,6 +35,7 @@ impl Source for HashMap<String, String> {
 
 // Blanket implementation for BTreeMap
 impl Source for BTreeMap<String, String> {
+	/// Looks up a key in a `BTreeMap`. Returns `Found` if the key exists, `Pass` otherwise.
 	fn get(&self, key: &str) -> SourceFuture<'_> {
 		let res = match self.get(key) {
 			Some(v) => Resolved::Found(v.clone()),
@@ -48,6 +50,7 @@ impl<F> Source for F
 where
 	F: Fn(&str) -> Resolved + Send + Sync,
 {
+	/// Allows a closure that takes a `&str` and returns `Resolved` to be used as a `Source`.
 	fn get(&self, key: &str) -> SourceFuture<'_> {
 		Box::pin(ready(self(key)))
 	}
