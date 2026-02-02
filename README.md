@@ -1,4 +1,4 @@
-# varchain
+# Varchain
 
 Async-only chain-based variable lookup engine.
 
