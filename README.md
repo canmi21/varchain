@@ -23,7 +23,7 @@ Check the `examples` directory for runnable code:
 
 ```toml
 [dependencies]
-varchain = { version = "0.1" }
+varchain = { version = "0.1", features = ["full"] }
 ```
 
 ## Feature Flags
