@@ -6,7 +6,7 @@ edition = "2024"
 rust-version = "1.93"
 categories = ["rust-patterns", "asynchronous", "no-std"]
 description = "Async-only chain-based variable lookup engine, support no_std with alloc."
-keywords = ["variable", "chain", "lookup", "async", "core"]
+keywords = ["variable", "chain", "lookup", "async", "no_std"]
 readme = "README.md"
 repository = "https://github.com/canmi21/varchain.git"
 
