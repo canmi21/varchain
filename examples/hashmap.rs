@@ -1,3 +1,5 @@
+/* examples/hashmap.rs */
+
 //! Minimal example: using a `HashMap` as a source.
 
 use std::collections::HashMap;

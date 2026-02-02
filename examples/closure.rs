@@ -1,3 +1,5 @@
+/* examples/closure.rs */
+
 //! Minimal example: using a closure as a source.
 
 use varchain::{Resolved, Scope};

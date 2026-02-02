@@ -1,8 +1,15 @@
+/* src/source.rs */
+
 //! Defines the `Source` trait for variable lookup.
 
-use std::collections::{BTreeMap, HashMap};
-use std::future::{Future, ready};
-use std::pin::Pin;
+use alloc::boxed::Box;
+use alloc::collections::BTreeMap;
+use alloc::string::String;
+use core::future::{Future, ready};
+use core::pin::Pin;
+
+#[cfg(feature = "std")]
+use std::collections::HashMap;
 
 use crate::Resolved;
 
@@ -24,6 +31,7 @@ pub trait Source<V = String>: Send + Sync {
 }
 
 /// Looks up a key in a `HashMap`. Returns `Found` if the key exists, `Pass` otherwise.
+#[cfg(feature = "std")]
 impl<V: Clone + Send + Sync> Source<V> for HashMap<String, V> {
 	fn get(&self, key: &str) -> SourceFuture<'_, V> {
 		let res = match self.get(key) {

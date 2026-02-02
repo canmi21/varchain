@@ -1,11 +1,11 @@
 [package]
 name = "varchain"
 license = "MIT"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2024"
 rust-version = "1.93"
-categories = ["rust-patterns", "asynchronous"]
-description = "An async-only chain-based variable lookup engine"
+categories = ["rust-patterns", "asynchronous", "no-std"]
+description = "Async-only chain-based variable lookup engine, support no_std with alloc."
 keywords = ["variable", "chain", "lookup", "async", "core"]
 readme = "README.md"
 repository = "https://github.com/canmi21/varchain.git"
@@ -16,6 +16,8 @@ all-features = true
 [dependencies]
 
 [features]
+default = ["std"]
+std = []
 
 [[example]]
 name = "hashmap"

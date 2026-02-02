@@ -1,3 +1,5 @@
+/* tests/integration_tests.rs */
+
 //! Integration tests for varchain.
 
 use std::collections::{BTreeMap, HashMap};

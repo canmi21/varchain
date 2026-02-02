@@ -1,6 +1,6 @@
 # Varchain
 
-Async-only chain-based variable lookup engine.
+Async-only chain-based variable lookup engine, support no_std with alloc.
 
 `varchain` provides a flexible way to resolve variables from a prioritized chain of sources (e.g., in-memory maps, environment variables, network lookups) without enforcing a specific runtime.
 
@@ -25,6 +25,13 @@ Check the `examples` directory for runnable code:
 [dependencies]
 varchain = { version = "0.1" }
 ```
+
+## Feature Flags
+
+| Feature | Description |
+|---------|-------------|
+| `std` | Enables standard library support for hashmap. |
+| `full` | Enables all features above. |
 
 ## License
 

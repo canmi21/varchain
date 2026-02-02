@@ -1,4 +1,8 @@
+/* src/resolved.rs */
+
 //! Defines the resolution result of a variable lookup.
+
+use alloc::string::String;
 
 /// The result of resolving a key from a [`Source`](crate::Source).
 ///

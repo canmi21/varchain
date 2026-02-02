@@ -1,6 +1,10 @@
+/* src/scope.rs */
+
 //! Defines `Scope` for chaining multiple sources.
 
-use std::sync::Arc;
+use alloc::string::String;
+use alloc::sync::Arc;
+use alloc::vec::Vec;
 
 use crate::{Resolved, Source};
 
@@ -63,8 +67,8 @@ pub async fn lookup<V>(key: &str, scope: &Scope<V>) -> Option<V> {
 	None
 }
 
-impl<V> std::fmt::Debug for Scope<V> {
-	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl<V> core::fmt::Debug for Scope<V> {
+	fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
 		f.debug_struct("Scope")
 			.field("sources_count", &self.sources.len())
 			.finish()
