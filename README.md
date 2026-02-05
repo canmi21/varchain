@@ -15,6 +15,7 @@ Async-only chain-based variable lookup engine, support no_std with alloc.
 Check the `examples` directory for runnable code:
 
 - **HashMap Source**: [`examples/hashmap.rs`](examples/hashmap.rs) - Simple memory-based lookup.
+- **ahash Source**: [`examples/ahash.rs`](examples/ahash.rs) - Use `AHashMap` for high-performance hashing.
 - **Closure Source**: [`examples/closure.rs`](examples/closure.rs) - Use functions for dynamic lookups.
 - **Chained Priority**: [`examples/chain.rs`](examples/chain.rs) - Demonstrate fallback and precedence.
 - **Custom Source**: [`examples/custom_source.rs`](examples/custom_source.rs) - Implement the `Source` trait for async backends.
@@ -31,6 +32,7 @@ varchain = { version = "0.1", features = ["full"] }
 | Feature | Description |
 |---------|-------------|
 | `std` | Enables standard library support for hashmap. |
+| `ahash` | Enables `ahash::AHashMap` support. |
 | `full` | Enables all features above. |
 
 ## License
