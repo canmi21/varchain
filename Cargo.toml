@@ -1,7 +1,7 @@
 [package]
 name = "varchain"
 license = "MIT"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2024"
 rust-version = "1.93"
 categories = ["rust-patterns", "asynchronous", "no-std"]
@@ -14,14 +14,20 @@ repository = "https://github.com/canmi21/varchain.git"
 all-features = true
 
 [dependencies]
+ahash = { version = "0.8", default-features = false, optional = true }
 
 [features]
 default = ["std"]
-full = ["std"]
+full = ["std", "ahash"]
 std = []
+ahash = ["dep:ahash", "ahash/std"]
 
 [[example]]
 name = "hashmap"
+
+[[example]]
+name = "ahash"
+required-features = ["ahash"]
 
 [[example]]
 name = "closure"
@@ -35,6 +41,7 @@ name = "custom_source"
 [dev-dependencies]
 tempfile = "3"
 tokio = { version = "1", features = ["full"] }
+ahash = "0.8"
 
 [lints.rust]
 unsafe_code = "forbid"

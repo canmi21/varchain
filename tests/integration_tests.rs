@@ -103,3 +103,21 @@ async fn test_from_impls() {
 	let r: Resolved = opt.into();
 	assert_eq!(r, Resolved::pass());
 }
+
+#[cfg(feature = "ahash")]
+#[tokio::test]
+async fn test_ahash_source() {
+	use ahash::AHashMap;
+
+	let mut map1 = AHashMap::new();
+	map1.insert("key1".to_owned(), "val1".to_owned());
+
+	let mut map2 = HashMap::new();
+	map2.insert("key1".to_owned(), "val2".to_owned());
+	map2.insert("key2".to_owned(), "val2".to_owned());
+
+	let scope = Scope::new().push(map1).push(map2);
+
+	assert_eq!(scope.lookup("key1").await, Some("val1".to_owned()));
+	assert_eq!(scope.lookup("key2").await, Some("val2".to_owned()));
+}

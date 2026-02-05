@@ -11,6 +11,9 @@ use core::pin::Pin;
 #[cfg(feature = "std")]
 use std::collections::HashMap;
 
+#[cfg(feature = "ahash")]
+use ahash::AHashMap;
+
 use crate::Resolved;
 
 /// A future returned by a source lookup.
@@ -35,6 +38,18 @@ pub trait Source<V = String>: Send + Sync {
 impl<V: Clone + Send + Sync> Source<V> for HashMap<String, V> {
 	fn get(&self, key: &str) -> SourceFuture<'_, V> {
 		let res = match self.get(key) {
+			Some(v) => Resolved::Found(v.clone()),
+			None => Resolved::Pass,
+		};
+		Box::pin(ready(res))
+	}
+}
+
+/// Looks up a key in an `AHashMap`. Returns `Found` if the key exists, `Pass` otherwise.
+#[cfg(feature = "ahash")]
+impl<V: Clone + Send + Sync> Source<V> for AHashMap<String, V> {
+	fn get(&self, key: &str) -> SourceFuture<'_, V> {
+		let res = match Self::get(self, key) {
 			Some(v) => Resolved::Found(v.clone()),
 			None => Resolved::Pass,
 		};
